@@ -15,14 +15,14 @@
 
                 <!-- 1. צד שמאל: לוגו ותפריט -->
                 <div class="d-flex align-items-center" style="flex: 1;">
-                    <a class="navbar-brand fw-bold text-danger Oswald" asp-controller="Movies" asp-action="Index" style="font-size: 1.5rem; letter-spacing: 1px;">IDFK</a>
+                    <a class="navbar-brand fw-bold text-danger Oswald" asp-page="/Index" style="font-size: 1.5rem; letter-spacing: 1px;">IDFK</a>
                     <div class="navbar-collapse collapse d-sm-inline-flex">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link text-light opacity-75" asp-controller="Movies" asp-action="Index">Home</a>
+                                <a class="nav-link text-light opacity-75" asp-page="/Index">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-light opacity-75" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                <a class="nav-link text-light opacity-75" asp-page="/Privacy">Privacy</a>
                             </li>
                         </ul>
                     </div>
@@ -60,15 +60,15 @@
                             @if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item me-2">
-                                    <a class="nav-link text-danger fw-bold small p-1" asp-controller="Admin" asp-action="Users">Admin</a>
+                                    <a class="nav-link text-danger fw-bold small p-1" asp-page="/Admin/Users">Admin</a>
                                 </li>
                                 <li class="nav-item me-2">
-                                    <a class="nav-link text-danger fw-bold small p-1" asp-controller="Movies" asp-action="Create">Add Movie</a>
+                                    <a class="nav-link text-danger fw-bold small p-1" asp-page="/Admin/AddMovie">Add Movie</a>
                                 </li>
                             }
 
                             <li class="nav-item">
-                                <form class="form-inline" asp-controller="Account" asp-action="Logout" method="post">
+                                <form class="form-inline" asp-page="/Account/Logout" method="post">
                                     <button type="submit" class="btn btn-link text-muted p-0 small" style="text-decoration:none;">Logout</button>
                                 </form>
                             </li>
@@ -76,12 +76,13 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-light small" asp-controller="Account" asp-action="Login">Login</a>
+                                <a class="nav-link text-light small" asp-page="/Account/Login">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="btn btn-outline-danger btn-sm ms-2" asp-controller="Account" asp-action="Register">Register</a>
+                                <a class="btn btn-outline-danger btn-sm ms-2" asp-page="/Account/Register">Register</a>
                             </li>
                         }
+
                     </ul>
                 </div>
             </div>
