@@ -1,0 +1,38 @@
+﻿@page
+@model IDFK.Pages.Admin.AddMovieModel
+@{
+    ViewData["Title"] = "הוספת סרט מארוול";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-sm" style="max-width: 600px; margin: auto;">
+        <div class="card-header bg-dark text-white text-center">
+            <h3>Adding a new movie to the community</h3>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label class="form-label">Movie name:</label>
+                    <input asp-for="NewMovie.Title" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Release year:</label>
+                    <input asp-for="NewMovie.ReleaseYear" class="form-control" type="number" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Link for the trailer (YouTube):</label>
+                    <input asp-for="NewMovie.TrailerUrl" class="form-control" placeholder="https://www.youtube.com..." />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Movie description:</label>
+                    <textarea asp-for="NewMovie.Description" class="form-control" rows="4"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Upload poster for the movie:</label>
+                    <input type="file" asp-for="PosterUpload" class="form-control" accept="image/*" />
+                </div>
+                <button type="submit" class="btn btn-danger w-100">Save movie in system</button>
+            </form>
+        </div>
+    </div>
+</div>

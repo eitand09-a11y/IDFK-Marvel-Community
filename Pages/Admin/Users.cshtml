@@ -1,0 +1,45 @@
+﻿@page
+@model IDFK.Pages.Admin.UsersModel
+@{
+    ViewData["Title"] = "ניהול משתמשים";
+}
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Managing users in the system</h2>
+        <span class="badge bg-primary">Total registered: @Model.UsersList.Count</span>
+    </div>
+
+    <div class="card shadow-sm">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Img</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th class="text-center">Functions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model.UsersList)
+                {
+                    <tr>
+                        <td class="align-middle">
+                            <img src="@(user.ProfilePicturePath ?? "/images/default-avatar.png")"
+                                 class="rounded-circle" style="width:40px; height:40px; object-fit:cover;" />
+                        </td>   
+                        <td class="align-middle">@user.Username</td>
+                        <td class="align-middle">@user.Email</td>
+                        <td class="text-center align-middle">
+                            @* כפתור מחיקה ששולח את ה-ID לפונקציית Delete *@
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@user.Id"
+                                  onsubmit="return confirm('Are you sure you want to delete the @user.Username?');">
+                                <button class="btn btn-outline-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

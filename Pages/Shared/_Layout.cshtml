@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - IDFK</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark border-bottom box-shadow mb-3 py-2" style="background-color: var(--marvel-card-bg);">
+            <div class="container-fluid d-flex align-items-center">
+
+                <!-- 1. צד שמאל: לוגו ותפריט -->
+                <div class="d-flex align-items-center" style="flex: 1;">
+                    <a class="navbar-brand fw-bold text-danger Oswald" asp-controller="Movies" asp-action="Index" style="font-size: 1.5rem; letter-spacing: 1px;">IDFK</a>
+                    <div class="navbar-collapse collapse d-sm-inline-flex">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link text-light opacity-75" asp-controller="Movies" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light opacity-75" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2. צד אמצע: סוויצ'ר איירון מן / קפטן (ממורכז תמיד) -->
+                <div class="d-flex justify-content-center" style="flex: 1.5;">
+                    <div class="theme-switcher-container">
+                        <div class="theme-option ironman-side active" onclick="setTheme('ironman', event)">IRON MAN</div>
+                        <div class="theme-option captain-side" onclick="setTheme('captain', event)">CAPTAIN AMERICA</div>
+                    </div>
+                </div>
+
+                <!-- 3. צד ימין: SHIELD ופרטי משתמש -->
+                <div class="d-flex align-items-center justify-content-end" style="flex: 1;">
+
+                    <!-- כפתור ניטרלי -->
+                    <button class="neutral-theme-btn me-3" id="btn-neutral" onclick="setNeutralTheme()">
+                        S.H.I.E.L.D MODE
+                    </button>
+
+                    <ul class="navbar-nav align-items-center">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item d-flex align-items-center me-3">
+                                <div class="d-flex align-items-center text-decoration-none text-light">
+                                    @* תמונת פרופיל מה-Claims או ברירת מחדל *@
+                                    <img src="@(User.FindFirst("ProfilePicture")?.Value ?? "/images/default-profile.png")"
+                                         class="rounded-circle me-2"
+                                         style="width:32px; height:32px; object-fit:cover; border:1px solid var(--marvel-accent);" />
+                                    <span class="fw-bold small">Hello, @User.Identity.Name!</span>
+                                </div>
+                            </li>
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item me-2">
+                                    <a class="nav-link text-danger fw-bold small p-1" asp-controller="Admin" asp-action="Users">Admin</a>
+                                </li>
+                                <li class="nav-item me-2">
+                                    <a class="nav-link text-danger fw-bold small p-1" asp-controller="Movies" asp-action="Create">Add Movie</a>
+                                </li>
+                            }
+
+                            <li class="nav-item">
+                                <form class="form-inline" asp-controller="Account" asp-action="Logout" method="post">
+                                    <button type="submit" class="btn btn-link text-muted p-0 small" style="text-decoration:none;">Logout</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light small" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-outline-danger btn-sm ms-2" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted mt-5">
+        <div class="container">
+            &copy; 2026 - IDFK - <a asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+<script>
+    function setTheme(themeName, event) {
+        document.documentElement.setAttribute('data-theme', themeName);
+    
+        // מסיר active מהכפתור הניטרלי
+        document.getElementById('btn-neutral').classList.remove('active');
+    
+        // מעדכן את הסוויצ'ר המרכזי
+        document.querySelectorAll('.theme-option').forEach(el => el.classList.remove('active'));
+        if(event) event.currentTarget.classList.add('active');
+    
+        localStorage.setItem('selectedTheme', themeName);
+    }
+
+    function setNeutralTheme() {
+        document.documentElement.setAttribute('data-theme', 'neutral');
+    
+        // מסיר active מהסוויצ'ר המרכזי
+        document.querySelectorAll('.theme-option').forEach(el => el.classList.remove('active'));
+    
+        // מוסיף active לכפתור ה-SHIELD
+        document.getElementById('btn-neutral').classList.add('active');
+    
+        localStorage.setItem('selectedTheme', 'neutral');
+    }
+
+
+
+    // בדיקה בטעינת הדף מה נבחר פעם אחרונה
+    window.onload = function() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'captain') {
+            document.getElementById('captain').checked = true;
+            setTheme('captain');
+        } else {
+            document.getElementById('ironman').checked = true;
+            setTheme('ironman');
+        }
+    };
+</script>
