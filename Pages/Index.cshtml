@@ -14,19 +14,18 @@
         @foreach (var movie in Model.MoviesList)
         {
             <div class="col">
-                <div class="card h-100 marvel-card shadow">
+                <div class="card h-100 marvel-card shadow border-0">
                     <div class="card-img-wrapper">
-                        <img src="@(movie.PosterPath ?? "https://via.placeholder.com")"
-                             class="card-img-top" alt="@movie.Title">
+                        <img src="@(movie.PosterPath ?? "https://via.placeholder.com")" class="card-img-top" alt="@movie.Title">
                         <div class="year-badge">@movie.ReleaseYear</div>
                     </div>
 
-                    <div class="card-body text-center bg-dark text-white">
+                    <div class="card-body text-center">
                         <h5 class="card-title fw-bold">@movie.Title</h5>
-                        <p class="card-text text-muted small">@movie.Description</p>
+                        <p class="card-text small">@movie.Description</p>
                     </div>
 
-                    <div class="card-footer bg-dark border-0 pb-3 px-3">
+                    <div class="card-footer border-0 pb-3 px-3">
                         <a asp-page="/MovieDetails" asp-route-id="@movie.Id" class="btn btn-marvel w-100">
                             WATCH TRAILER & CHAT
                         </a>
