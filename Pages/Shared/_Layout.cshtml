@@ -87,6 +87,13 @@
                 </div>
             </div>
         </nav>
+        <script>
+            (function () {
+                const savedTheme = localStorage.getItem('selectedTheme') || 'ironman';
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            })();
+        </script>
+
     </header>
 
     <div class="container">
@@ -109,42 +116,37 @@
 </body>
 </html>
 <script>
-    function setTheme(themeName, event) {
+        function setTheme(themeName) {
+        // 1. עדכון ה-HTML Attribute (בשביל ה-CSS)
         document.documentElement.setAttribute('data-theme', themeName);
-    
-        // מסיר active מהכפתור הניטרלי
-        document.getElementById('btn-neutral').classList.remove('active');
-    
-        // מעדכן את הסוויצ'ר המרכזי
-        document.querySelectorAll('.theme-option').forEach(el => el.classList.remove('active'));
-        if(event) event.currentTarget.classList.add('active');
-    
+
+        // 2. שמירה ב-LocalStorage (בשביל הריפרש)
         localStorage.setItem('selectedTheme', themeName);
+
+        // 3. עדכון ויזואלי של הכפתורים (הוספת Class active)
+        const ironmanBtn = document.querySelector('.ironman-side');
+        const captainBtn = document.querySelector('.captain-side');
+        const neutralBtn = document.getElementById('btn-neutral');
+
+        // איפוס כולם
+        ironmanBtn.classList.remove('active');
+        captainBtn.classList.remove('active');
+        neutralBtn.classList.remove('active');
+
+        // הדלקת הנכון
+        if (themeName === 'ironman') ironmanBtn.classList.add('active');
+        if (themeName === 'captain') captainBtn.classList.add('active');
+        if (themeName === 'neutral') neutralBtn.classList.add('active');
     }
 
     function setNeutralTheme() {
-        document.documentElement.setAttribute('data-theme', 'neutral');
-    
-        // מסיר active מהסוויצ'ר המרכזי
-        document.querySelectorAll('.theme-option').forEach(el => el.classList.remove('active'));
-    
-        // מוסיף active לכפתור ה-SHIELD
-        document.getElementById('btn-neutral').classList.add('active');
-    
-        localStorage.setItem('selectedTheme', 'neutral');
+        setTheme('neutral');
     }
 
+    // מה קורה כשהדף מסיים להיטען
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const savedTheme = localStorage.getItem('selectedTheme') || 'ironman';
+        setTheme(savedTheme); // מפעיל את העיצוב השמור ומסדר את הכפתורים
+    });
 
-
-    // בדיקה בטעינת הדף מה נבחר פעם אחרונה
-    window.onload = function() {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'captain') {
-            document.getElementById('captain').checked = true;
-            setTheme('captain');
-        } else {
-            document.getElementById('ironman').checked = true;
-            setTheme('ironman');
-        }
-    };
 </script>
