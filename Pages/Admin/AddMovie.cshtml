@@ -7,28 +7,28 @@
 <div class="container mt-5">
     <div class="card shadow-sm" style="max-width: 600px; margin: auto;">
         <div class="card-header bg-dark text-white text-center">
-            <h3>Adding a new movie to the community</h3>
+            <h3 id="add-movie-title" style="color: #ff5722;" class="text-warning">Adding a new movie to the community</h3>
         </div>
         <div class="card-body">
             <form method="post" enctype="multipart/form-data">
                 <div class="mb-3">
-                    <label class="form-label">Movie name:</label>
+                    <label class="form-label text-white">Movie name:</label>
                     <input asp-for="NewMovie.Title" class="form-control" />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Release year:</label>
+                    <label class="form-label text-white">Release year:</label>
                     <input asp-for="NewMovie.ReleaseYear" class="form-control" type="number" />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Link for the trailer (YouTube):</label>
+                    <label class="form-label text-white">Link for the trailer (YouTube):</label>
                     <input asp-for="NewMovie.TrailerUrl" class="form-control" placeholder="https://www.youtube.com..." />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Movie description:</label>
+                    <label class="form-label text-white">Movie description:</label>
                     <textarea asp-for="NewMovie.Description" class="form-control" rows="4"></textarea>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Upload poster for the movie:</label>
+                    <label class="form-label text-white">Upload poster for the movie:</label>
                     <input type="file" asp-for="PosterUpload" class="form-control" accept="image/*" />
                 </div>
                 <button type="submit" class="btn btn-danger w-100">Save movie in system</button>

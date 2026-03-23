@@ -53,7 +53,7 @@
                                     <img src="@(User.FindFirst("ProfilePicture")?.Value ?? "/images/default-profile.png")"
                                          class="rounded-circle me-2"
                                          style="width:32px; height:32px; object-fit:cover; border:1px solid var(--marvel-accent);" />
-                                    <span class="fw-bold small">Hello, @User.Identity.Name!</span>
+                                    <a class="nav-link text-danger fw-bold small p-1" asp-page="/Profile"><span class="fw-bold small">Hello, @User.Identity.Name!</span></a>
                                 </div>
                             </li>
 

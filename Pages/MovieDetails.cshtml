@@ -6,7 +6,6 @@
     var videoId = "";
     if (!string.IsNullOrEmpty(Model.Movie.TrailerUrl))
     {
-        // מחלץ את ה-ID של הסרט מיוטיוב
         var uri = new Uri(Model.Movie.TrailerUrl);
         var query = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query);
         videoId = query.ContainsKey("v") ? query["v"] : uri.Segments.Last();
@@ -35,14 +34,14 @@
 
             <div class="card bg-light">
                 <div class="card-header bg-dark text-white">
-                    <i class="bi bi-chat-dots"></i> צאט קהילת @Model.Movie.Title
+                    <i class="bi bi-chat-dots"></i>Community chat @Model.Movie.Title
                 </div>
 
                 <div class="card-body" style="height: 300px; overflow-y: auto;" id="chatWindow">
                     <!-- טעינת הודעות ישנות מה-DB -->
                     @foreach (var msg in Model.ChatHistory)
                     {
-                        <div class="p-2 mb-2 bg-white border-bottom shadow-sm rounded">
+                        <div class="p-2 mb-2 bg-white border-bottom shadow-sm rounded" id="message-text">
                             <strong class="text-danger">@msg.User:</strong> @msg.Message
                             <small class="text-muted d-block" style="font-size: 0.7em;">@msg.Timestamp.ToString("HH:mm")</small>
                         </div>
@@ -54,7 +53,7 @@
                 {
                     <div class="card-footer">
                         <div class="input-group">
-                            <input id="chatInput" type="text" class="form-control" placeholder="כתוב משהו למעריצים..." onkeypress="if(event.key === 'Enter') sendMessage()">
+                            <input id="chatInput" type="text" class="form-control" placeholder="Write something to the fans..." onkeypress="if(event.key === 'Enter') sendMessage()">
                             <button onclick="sendMessage()" class="btn btn-danger">Send</button>
                         </div>
                     </div>
@@ -62,7 +61,7 @@
                 else
                 {
                     <div class="card-footer text-center bg-warning-subtle">
-                        <span>כדי להשתתף בצאט הקהילה, עליך <a asp-page="/Account/Login" class="fw-bold text-danger">להתחבר למערכת</a>.</span>
+                        <span>To participate in the community chat, you must <a asp-page="/Account/Login" class="fw-bold text-danger">be logged in.</a>.</span>
                     </div>
                 }
             </div>
