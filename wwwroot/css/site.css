@@ -447,3 +447,77 @@ input.form-control::placeholder {
 [data-theme="neutral"] #add-movie-title {
     color: white !important
 }
+
+
+
+
+/* קונטיינר ראשי לגלילה */
+.cast-wrapper {
+    display: flex;
+    overflow-x: auto; /* מאפשר גלילה אופקית */
+    gap: 20px;
+    padding: 10px 5px 20px 5px;
+    scrollbar-width: thin; /* עיצוב סקרולר לדפדפני Firefox */
+    scrollbar-color: #e21b22 #1a1a1a; /* צבעי מארוול לסקרולר */
+}
+
+/* עיצוב הסקרולר לדפדפני Chrome/Edge/Safari */
+.cast-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+.cast-wrapper::-webkit-scrollbar-thumb {
+    background: #e21b22; /* אדום מארוול */
+    border-radius: 10px;
+}
+.cast-wrapper::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+/* כרטיס שחקן בודד */
+.cast-card {
+    flex: 0 0 140px; /* רוחב קבוע לכל כרטיס כדי שלא יתכווצו */
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.cast-card:hover {
+    transform: translateY(-5px); /* אפקט ריחוף קטן */
+}
+
+/* תמונת השחקן */
+.cast-img-container {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 10px;
+    border-radius: 50%; /* תמונה עגולה */
+    overflow: hidden;
+    border: 3px solid #e21b22;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+}
+
+.cast-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* מבטיח שהתמונה לא תתעוות */
+}
+
+/* טקסט השחקן והדמות */
+.actor-name {
+    display: block;
+    font-weight: bold;
+    font-size: 0.95rem;
+    color: #fff;
+    white-space: normal; /* מאפשר לשם ארוך לרדת שורה */
+}
+
+.character-name {
+    display: block;
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
+.section-title {
+    border-right: 5px solid #e21b22; /* קו עיצובי ליד הכותרת */
+    padding-right: 15px;
+}
+

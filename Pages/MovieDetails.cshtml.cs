@@ -21,7 +21,7 @@ namespace IDFK.Pages
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            Movie = await _context.Movies.FirstOrDefaultAsync(m => m.Id == id);
+            Movie = await _context.Movies.Include(m => m.Actors).FirstOrDefaultAsync(m => m.Id == id);
             if (Movie == null) return NotFound();
 
             // ????? 50 ??????? ???????? ?? ???? ???

@@ -60,10 +60,13 @@
                             @if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item me-2">
-                                    <a class="nav-link text-danger fw-bold small p-1" asp-page="/Admin/Users">Admin</a>
+                                    <a class="nav-link text-danger fw-bold small p-1" asp-page="/Admin/Users">Users Panel</a>
                                 </li>
                                 <li class="nav-item me-2">
                                     <a class="nav-link text-danger fw-bold small p-1" asp-page="/Admin/AddMovie">Add Movie</a>
+                                </li>
+                                <li class="nav-item me-2">
+                                    <a class="nav-link text-danger fw-bold small p-1" asp-page="/Admin/ManageActors">Manage Actors</a>
                                 </li>
                             }
 

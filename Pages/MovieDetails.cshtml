@@ -67,6 +67,32 @@
             </div>
         </div>
     </div>
+    <div class="movie-cast-section mt-5">
+        <h3 class="section-title mb-4">The actors of the movie: </h3>
+
+        <div class="cast-wrapper">
+            @if (Model.Movie.Actors != null && Model.Movie.Actors.Any())
+            {
+                @foreach (var actor in Model.Movie.Actors)
+                {
+                    <div class="cast-card">
+                        <div class="cast-img-container">
+                            <img src="@actor.ImageUrl" alt="@actor.Name" onerror="this.src='/images/default-actor.png';" />
+                        </div>
+                        <div class="cast-info">
+                            <span class="actor-name">@actor.Name</span>
+                            <span class="character-name">@actor.CharacterName</span>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="text-muted">No actors have been added to this movie yet.</p>
+            }
+        </div>
+    </div>
+
 </div>
 
 @section Scripts {
@@ -88,7 +114,7 @@
 
                 var deleteBtn = "";
                 if (isAdmin) {
-                    deleteBtn = `<button onclick="deleteMsg(${messageId})" class="btn btn-sm text-danger p-0 ms-2" title="מחק">🗑️</button>`;
+                    deleteBtn = `<button onclick="deleteMsg(${messageId})" class="btn btn-sm text-danger p-0 ms-2" title="Delet">🗑️</button>`;
                 }
 
                 var msgElement = `

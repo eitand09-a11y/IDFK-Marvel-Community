@@ -1,0 +1,96 @@
+﻿@page
+@model IDFK.Pages.Admin.ManageActorsModel
+@{
+    ViewData["Title"] = "ניהול שחקנים";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Manage Actors Movies</h2>
+
+    <div class="row">
+        <!-- Add New Actor -->
+        <div class="col-md-5 border-end">
+            <h4>Add new actor</h4>
+            <form method="post" asp-page-handler="AddActor">
+                <div class="mb-3">
+                    <label>Actor name: </label>
+                    <input asp-for="NewActor.Name" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                    <label>Character name: </label>
+                    <input asp-for="NewActor.CharacterName" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label>Image URL: </label>
+                    <input asp-for="NewActor.ImageUrl" class="form-control" placeholder="/images/actors/name.jpg" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save Actor</button>
+            </form>
+        </div>
+
+        <!-- Actor - Movie -->
+        <div class="col-md-7">
+            <h4>Assigning an actor to a movie</h4>
+            <form method="post" asp-page-handler="AssignActor">
+                <div class="mb-3">
+                    <label>Select Movie</label>
+                    <select name="selectedMovieId" class="form-select">
+                        @foreach (var movie in Model.Movies)
+                        {
+                            <option value="@movie.Id">@movie.Title</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label>Select Actor</label>
+                    <select name="selectedActorId" class="form-select">
+                        @foreach (var actor in Model.ActorsList)
+                        {
+                            <option value="@actor.Id">@actor.Name (@actor.CharacterName)</option>
+                        }
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success w-100">Assigning</button>
+            </form>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card border-danger bg-dark text-white">
+                    <div class="card-header border-danger">
+                        <h5 class="text-danger mb-0"><i class="bi bi-exclamation-triangle"></i>Database Management - Cleaning Up Tables</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex flex-wrap gap-3">
+
+                            <!-- Delete only ACTORS -->
+                            <form method="post" asp-page-handler="ResetActors" onsubmit="return confirm('Delete all actors?');">
+                                <button type="submit" class="btn btn-outline-warning">
+                                    <i class="bi bi-person-x"></i> Delete all Actors
+                                </button>
+                            </form>
+
+                            <!-- Delete only MOVIES -->
+                            <form method="post" asp-page-handler="ResetMovies" onsubmit="return confirm('Delete all movies?');">
+                                <button type="submit" class="btn btn-outline-warning">
+                                    <i class="bi bi-film"></i> Delete all Movies
+                                </button>
+                            </form>
+
+                            <!-- Restart ALL -->
+                            <form method="post" asp-page-handler="ResetAll" onsubmit="return confirm('This will delete everything (movies, actors and links). Are you sure?');">
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="bi bi-trash-fill"></i> Reset All (Clean State)
+                                </button>
+                            </form>
+
+                        </div>
+                        <small class="text-muted mt-2 d-block">* Deleting actors or movies will automatically delete the links between them.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
